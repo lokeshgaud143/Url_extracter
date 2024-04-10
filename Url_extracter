@@ -1,0 +1,18 @@
+import re
+import requests
+
+def extract_emails_from_website(url):
+    # Fetch the webpage content
+    response = requests.get(url)
+    if response.status_code == 200:
+        # Use regex to find email addresses
+        emails = re.findall(r'\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Z|a-z]{2,}\b', response.text)
+        return emails
+    else:
+        print("Failed to fetch the webpage. Status code:", response.status_code)
+        return []
+
+# Example usage
+website_url = "https://example.com"
+emails = extract_emails_from_website(website_url)
+print("Emails found on", website_url, ":", emails)
